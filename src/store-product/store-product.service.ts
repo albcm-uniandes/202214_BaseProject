@@ -3,7 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {StoreEntity} from "../store/store.entity";
 import {ProductEntity} from "../product/product.entity";
 import {Repository} from "typeorm";
-import {BusinessError, BusinessLogicException} from 'src/shared/errors/business-errors';
+import {BusinessError, BusinessLogicException} from '../shared/errors/business-errors';
 
 @Injectable()
 export class StoreProductService {
@@ -51,7 +51,7 @@ export class StoreProductService {
         if (!store)
             throw new BusinessLogicException("The store with the given id was not found", BusinessError.NOT_FOUND)
 
-        const storeProduct: StoreEntity = store.products.find(e => e.id === product.id);
+        const storeProduct: StoreEntity = product.stores.find(e => e.id === store.id);
 
         if (!storeProduct)
             throw new BusinessLogicException("The product with the given id is not associated to the store", BusinessError.PRECONDITION_FAILED)
@@ -93,7 +93,7 @@ export class StoreProductService {
         if (!store)
             throw new BusinessLogicException("The store with the given id was not found", BusinessError.NOT_FOUND)
 
-        const storeProduct: StoreEntity = store.products.find(e => e.id === product.id);
+        const storeProduct: StoreEntity = product.stores.find(e => e.id === store.id);
 
         if (!storeProduct)
             throw new BusinessLogicException("The product with the given id is not associated to the store", BusinessError.PRECONDITION_FAILED)

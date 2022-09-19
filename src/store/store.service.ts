@@ -14,15 +14,15 @@ export class StoreService {
 
     validCityCode(store: StoreEntity): boolean {
         let valid_codes = ['SMR', 'BOG', 'MED']
-        return store.city.toUpperCase() in valid_codes;
+        return valid_codes.includes(store.city.toUpperCase());
     }
 
     async findAll(): Promise<StoreEntity[]> {
-        return await this.storeRepository.find({relations: ["stores"]});
+        return await this.storeRepository.find({relations: ["products"]});
     }
 
     async findOne(id: string): Promise<StoreEntity> {
-        const store: StoreEntity = await this.storeRepository.findOne({where: {id}, relations: ["stores"]});
+        const store: StoreEntity = await this.storeRepository.findOne({where: {id}, relations: ["products"]});
         if (!store)
             throw new BusinessLogicException("The store with the given id was not found", BusinessError.NOT_FOUND);
         return store;
