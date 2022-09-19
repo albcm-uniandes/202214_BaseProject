@@ -29,7 +29,7 @@ describe('StoreService', () => {
             storesList = [];
             for (let i = 0; i < 5; i++) {
                 const store: StoreEntity = await repository.save({
-                    name: faker.company.companyName(),
+                    name: faker.company.name(),
                     city: "BOG",
                     address: faker.address.streetAddress()
                 })

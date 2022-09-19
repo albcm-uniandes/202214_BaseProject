@@ -16,7 +16,10 @@ export class StoreProductService {
     }
 
     async addStoreToProduct(storeId: string, productId: string): Promise<ProductEntity> {
-        const product: ProductEntity = await this.productRepository.findOne({where: {id: productId}});
+        const product: ProductEntity = await this.productRepository.findOne({
+            where: {id: productId},
+            relations: ["stores"]
+        });
         if (!product)
             throw new BusinessLogicException("The product with the given id was not found", BusinessError.NOT_FOUND);
 
@@ -62,14 +65,17 @@ export class StoreProductService {
     async updateStoresFromProduct(productId: string, stores: StoreEntity[]) {
         const product: ProductEntity = await this.productRepository.findOne({
             where: {id: productId},
-            relations: ["products"]
+            relations: ["stores"]
         });
 
         if (!product)
             throw new BusinessLogicException("The product with the given id was not found", BusinessError.NOT_FOUND)
 
         for (let i = 0; i < stores.length; i++) {
-            const store: StoreEntity = await this.storeRepository.findOne({where: {id: stores[i].id}});
+            const store: StoreEntity = await this.storeRepository.findOne({
+                where: {id: stores[i].id},
+                relations: ["products"]
+            });
             if (!store)
                 throw new BusinessLogicException("The store with the given id was not found", BusinessError.NOT_FOUND)
         }
@@ -99,7 +105,7 @@ export class StoreProductService {
             throw new BusinessLogicException("The product with the given id is not associated to the store", BusinessError.PRECONDITION_FAILED)
 
         product.stores = product.stores.filter(e => e.id !== store.id);
-        await this.productRepository.save(store);
+        await this.productRepository.save(product);
     }
 
 }
