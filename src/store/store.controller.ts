@@ -7,7 +7,7 @@ import {StoreDto} from "./store.dto";
 
 @Controller('stores')
 @UseInterceptors(BusinessErrorsInterceptor)
-export class ProductController {
+export class StoreController {
     constructor(private readonly storeService: StoreService) {}
 
     @Get()

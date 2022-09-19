@@ -13,7 +13,7 @@ export class StoreProductController {
 
     @Post(':productId/stores/:storeId')
     async addStoreToProduct(@Param('productId') productId: string, @Param('storeId') storeId: string) {
-        return await this.storeProductService.addStoreToProduct(productId, storeId);
+        return await this.storeProductService.addStoreToProduct(storeId, productId);
     }
 
     @Get(':productId/stores')
@@ -23,7 +23,7 @@ export class StoreProductController {
 
     @Get(':productId/stores/:storeId')
     async findStoreFromProduct(@Param('productId') productId: string, @Param('storeId') storeId: string) {
-        return await this.storeProductService.findStoreFromProduct(productId, storeId);
+        return await this.storeProductService.findStoreFromProduct(storeId, productId);
     }
 
     @Put(':productId/stores')
@@ -35,6 +35,6 @@ export class StoreProductController {
     @Delete(':productId/stores/:storeId')
     @HttpCode(204)
     async deleteStoreFromProduct(@Param('productId') productId: string, @Param('storeId') storeId: string) {
-        return await this.storeProductService.deleteStoreFromProduct(productId, storeId);
+        return await this.storeProductService.deleteStoreFromProduct(storeId, productId);
     }
 }

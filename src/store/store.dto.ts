@@ -5,9 +5,9 @@ export class StoreDto {
     @IsNotEmpty()
     readonly name: string;
 
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
-    readonly city: number;
+    readonly city: string;
 
     @IsString()
     @IsNotEmpty()
